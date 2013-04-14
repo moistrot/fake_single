@@ -195,7 +195,9 @@ namespace fake_single
         {
             if (room_list_view.SelectedItems.Count == 0) return;
             string room_num = room_list_view.SelectedItems[0].SubItems[2].Text;
-            room_deatil detail = room_deatil.getInstance(room_num);
+            string building_num = room_list_view.SelectedItems[0].SubItems[1].Text;
+            building_num = building_num.Replace("#", "");
+            room_deatil detail = room_deatil.getInstance(room_num, building_num);
             detail.MdiParent = this.ParentForm;
 
 

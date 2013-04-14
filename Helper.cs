@@ -65,80 +65,84 @@ namespace FireBirdHelper
                 sql += " and Floor = " + floor;
             }
             cmd.CommandText = sql;
-            Console.WriteLine("++++");
             Console.WriteLine(sql);
             List<RoomBean> ret = new List<RoomBean>();
             using (FbDataReader reader = cmd.ExecuteReader()){
                 while (reader.Read())
                 {
-                    RoomBean bean = new RoomBean();
-                    bean.setName((String)reader["NAME"]);
-                    bean.setBuildingNumber((int)(long)reader["BUILDINGNUMBER"]);
-                    bean.setFloor((int)(long)reader["FLOOR"]);
-                    bean.setActualArea((float)reader["ACTUALAREA"]);
-                    bean.setPublicArea((float)reader["PUBLICAREA"]);
-                    bean.setTotalArea((float)reader["TOTALAREA"]);
-                    bean.setPublicRatio((float)reader["PUBLICRATIO"]);
-                    try
-                    {
-                        bean.setUnderName((String)reader["UNDERNAME"]);
-                    }
-                    catch (Exception e)
-                    {
-                    }
-                    try
-                    {
-                        bean.setUnderFloor((int)(long)reader["UNDERFLOOR"]);
-                    }
-                    catch (Exception e)
-                    {
-                    }
-                    try
-                    {
-                        bean.setUnderActual((float)reader["UNDERACTUAL"]);
-                    }
-                    catch (Exception e)
-                    {
-                    }
-                    try
-                    {
-                        bean.setUnderPublic((float)reader["UNDERPUBLIC"]);
-                    }
-                    catch (Exception e)
-                    {
-                    }
-                    try
-                    {
-                        bean.setUnderTotal((float)reader["UNDERTOTAL"]);
-                    }
-                    catch (Exception e)
-                    {
-                    }
-                    try
-                    {
-                        bean.setIsReserved((int)(long)reader["ISRESERVED"]);
-                    }
-                    catch (Exception e)
-                    {
-                    }
-                    try
-                    {
-                        bean.setIsToken((int)(long)reader["ISTOKEN"]);
-                    }
-                    catch (Exception e)
-                    {
-                    }
-                    try
-                    {
-                        bean.setOwner((String)reader["OWNER"]);
-                    }
-                    catch (Exception e)
-                    {
-                    }
-                    ret.Add(bean);
+                    ret.Add(buildRoomBean(reader));
                 }
             }
             return ret;
+        }
+
+        private RoomBean buildRoomBean(FbDataReader reader)
+        {
+            RoomBean bean = new RoomBean();
+            bean.setName((String)reader["NAME"]);
+            bean.setBuildingNumber((int)(long)reader["BUILDINGNUMBER"]);
+            bean.setFloor((int)(long)reader["FLOOR"]);
+            bean.setActualArea((float)reader["ACTUALAREA"]);
+            bean.setPublicArea((float)reader["PUBLICAREA"]);
+            bean.setTotalArea((float)reader["TOTALAREA"]);
+            bean.setPublicRatio((float)reader["PUBLICRATIO"]);
+            try
+            {
+                bean.setUnderName((String)reader["UNDERNAME"]);
+            }
+            catch (Exception e)
+            {
+            }
+            try
+            {
+                bean.setUnderFloor((int)(long)reader["UNDERFLOOR"]);
+            }
+            catch (Exception e)
+            {
+            }
+            try
+            {
+                bean.setUnderActual((float)reader["UNDERACTUAL"]);
+            }
+            catch (Exception e)
+            {
+            }
+            try
+            {
+                bean.setUnderPublic((float)reader["UNDERPUBLIC"]);
+            }
+            catch (Exception e)
+            {
+            }
+            try
+            {
+                bean.setUnderTotal((float)reader["UNDERTOTAL"]);
+            }
+            catch (Exception e)
+            {
+            }
+            try
+            {
+                bean.setIsReserved((int)(long)reader["ISRESERVED"]);
+            }
+            catch (Exception e)
+            {
+            }
+            try
+            {
+                bean.setIsToken((int)(long)reader["ISTOKEN"]);
+            }
+            catch (Exception e)
+            {
+            }
+            try
+            {
+                bean.setOwner((String)reader["OWNER"]);
+            }
+            catch (Exception e)
+            {
+            }
+            return bean;
         }
 
         public void update(RoomBean bean)
@@ -154,6 +158,27 @@ namespace FireBirdHelper
             cm.CommandText = sql;
             cm.ExecuteNonQuery();
             
+        }
+
+        public RoomBean getRoomBean(string name, int building)
+        {
+            RoomBean room = new RoomBean();
+            FbCommand cm = new FbCommand();
+            cm.Connection = cn;
+            String sql = "select * from ROOM where NAME = '" + name
+                            + "' and BUILDINGNUMBER = " + building;
+            cm.CommandType = System.Data.CommandType.Text;
+            cm.CommandText = sql;
+
+            
+            using (FbDataReader reader = cm.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    room = buildRoomBean(reader);
+                }
+            }
+            return room;
         }
 
         public void update(String name,int buildingNumber, int reserved, int token)
