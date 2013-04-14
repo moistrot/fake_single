@@ -22,7 +22,7 @@ namespace FireBirdHelper
             //cs.Dialect = 1;
             cn = new FbConnection();
             cn.ConnectionString = cs.ToString();
-            
+            cn.Open();
         }
         public static Helper getInstance()
         {
@@ -31,9 +31,17 @@ namespace FireBirdHelper
             }
             return helper;
         }
+
+        public void destroy()
+        {
+            if (cn != null)
+            {
+                cn.Close();
+            }
+        }
+
         public List<RoomBean> find(float min, float max, int reserved, int token, int buildingNumber, int floor)
         {
-            cn.Open();
             FbCommand cmd = cn.CreateCommand();
             String sql = "select * from ROOM where 1=1";
             if (min > 0.0 && max > 0.0)
@@ -130,26 +138,26 @@ namespace FireBirdHelper
                     ret.Add(bean);
                 }
             }
-            cn.Close();
             return ret;
         }
 
         public void update(RoomBean bean)
         {
-            cn.Open();
             FbCommand cm = new FbCommand();
             cm.Connection = cn;
-            String sql = "update ROOM set ISRESERVED = " + bean.getIsReserved() + ", ISTOKEN = " + bean.getIsToken() + " where NAME = "+ bean.getName();
+            String sql = "update ROOM set ISRESERVED = " 
+                + bean.getIsReserved() + ", ISTOKEN = " 
+                + bean.getIsToken() 
+                + " where NAME = '"+ bean.getName() + "'"
+                + " and BUILDINGNUMBER = " + bean.getBuildingNumber();
             cm.CommandType = System.Data.CommandType.Text;
             cm.CommandText = sql;
             cm.ExecuteNonQuery();
-            cn.Close();
             
         }
 
         public void update(String name,int buildingNumber, int reserved, int token)
         {
-            cn.Open();
             FbCommand cm = new FbCommand();
             cm.Connection = cn;
             String sql = "update ROOM set ISRESERVED = " + reserved + ", ISTOKEN = " + token + " where NAME = '" + name + 
@@ -157,14 +165,12 @@ namespace FireBirdHelper
             cm.CommandType = System.Data.CommandType.Text;
             cm.CommandText = sql;
             cm.ExecuteNonQuery();
-            cn.Close();
             
         }
 
         public List<SECTION> getSections()
         {
 
-            cn.Open();
             FbCommand cmd = cn.CreateCommand();
             String sql = "select * from AREASECTION";
             
@@ -182,7 +188,6 @@ namespace FireBirdHelper
                     ret.Add(bean);
                 }
             }
-            cn.Close();
             return ret;
         }
 

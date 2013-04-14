@@ -1,4 +1,6 @@
-﻿namespace fake_single
+﻿using FireBirdHelper;
+
+namespace fake_single
 {
     partial class parent
     {
@@ -17,6 +19,8 @@
             {
                 components.Dispose();
             }
+            Helper helper = Helper.getInstance();
+            helper.destroy();
             base.Dispose(disposing);
         }
 
@@ -83,8 +87,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 摇号ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 房屋管理ToolStripMenuItem;
-
-       
 
     }
 }

@@ -45,9 +45,9 @@ namespace fake_single
 
         public draw(SECTION section)
         {
-            this.section = section;
-            init_room_list(section);
             InitializeComponent();
+            init_room_list(section);
+            this.section = section;
             this.range_show.Text = section.toString();
             this.label2.Hide();
             this.button2.Hide();
@@ -58,13 +58,12 @@ namespace fake_single
         public void init_room_list(SECTION section)
         {
             Helper helper = Helper.getInstance();
-            Console.WriteLine("------------");
             ava = helper.find(section.getMin(), section.getMax(), -1, 0, 0, 0);
             already = helper.find(section.getMin(), section.getMax(), -1, 1, 0, 0); //
             ava_true = helper.find(section.getMin(), section.getMax(), 0, 0, 0, 0);
 
+            this.label3.Text = "此区间已经摇出" + already.Count + "套，还剩" + ava.Count + "套";
             Console.WriteLine(ava.Count + " " + ava_true.Count + " " + already.Count);
-            
         }
 
 
@@ -84,9 +83,6 @@ namespace fake_single
             {
                 i = 0;
             }
-
-
-            
             Random random = new Random();
             i = random.Next(ava.Count);
             this.target_box.Text = ava[i].getString();
@@ -104,7 +100,7 @@ namespace fake_single
             timer1.Stop();
             button2.Hide();
             button1.Hide();
-            // MessageBox.Show("恭喜您！你取得" + this.target_box.Text + "房屋!");
+            
             label2.Show();
             final = random();
             //todo: final初始化
@@ -131,9 +127,13 @@ namespace fake_single
             this.do_save.Hide();
             this.cancel.Hide();
             // do save data to DB
+            Helper helper = Helper.getInstance();
+            final.setIsToken(1);
+            helper.update(final);
 
             clean();
             this.button1.Show();
+            init_room_list(this.section);
             
         }
 

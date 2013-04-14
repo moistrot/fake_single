@@ -107,6 +107,7 @@
             this.query.TabIndex = 6;
             this.query.Text = "查询";
             this.query.UseVisualStyleBackColor = true;
+            this.query.Click += new System.EventHandler(this.query_Click);
             // 
             // room_list_view
             // 
@@ -125,6 +126,7 @@
             this.first_page.TabIndex = 8;
             this.first_page.Text = "首页";
             this.first_page.UseVisualStyleBackColor = true;
+            this.first_page.Click += new System.EventHandler(this.first_page_Click);
             // 
             // pre_page
             // 
@@ -134,6 +136,7 @@
             this.pre_page.TabIndex = 9;
             this.pre_page.Text = "上一页";
             this.pre_page.UseVisualStyleBackColor = true;
+            this.pre_page.Click += new System.EventHandler(this.pre_page_Click);
             // 
             // next_page
             // 
@@ -143,6 +146,7 @@
             this.next_page.TabIndex = 10;
             this.next_page.Text = "下一页";
             this.next_page.UseVisualStyleBackColor = true;
+            this.next_page.Click += new System.EventHandler(this.next_page_Click);
             // 
             // last_page
             // 
@@ -152,6 +156,7 @@
             this.last_page.TabIndex = 11;
             this.last_page.Text = "末页";
             this.last_page.UseVisualStyleBackColor = true;
+            this.last_page.Click += new System.EventHandler(this.last_page_Click);
             // 
             // label1
             // 
