@@ -42,6 +42,14 @@ namespace fake_single
                 this.range.Items.Add(sections[i].toString());
             }
             this.range.SelectedIndex = 0;
+
+            List<int> building_nums = helper.getBuildingNums();
+            this.build_num.Items.Add("不限");
+            for (int i = 1; i < building_nums.Count; i++)
+            {
+                this.build_num.Items.Add("#" + building_nums[i]);
+            }
+            this.build_num.SelectedIndex = 0;
         }  
 
         private void label1_Click(object sender, EventArgs e)
@@ -56,11 +64,7 @@ namespace fake_single
             this.is_valid.Items.Add("未摇");
             this.is_valid.SelectedIndex = 0;
 
-            for (int i = 1; i < 16; i++)
-            {
-                this.build_num.Items.Add("#" + i);
-            }
-            this.build_num.SelectedIndex = 0;
+            
 
             load_list_view();
         }
@@ -85,6 +89,9 @@ namespace fake_single
 
             int min_range = 0;
             int max_range = 10000;
+            int token = -1;
+            int building_num = -1;
+
             String selected_range = range.SelectedItem.ToString();
             if (!selected_range.Equals("不限"))
             {
@@ -93,8 +100,28 @@ namespace fake_single
                 max_range = Convert.ToInt32(temp_selected[1]);
             }
 
+            String is_valid_text = is_valid.SelectedItem.ToString();
+            if (!is_valid_text.Equals("不限"))
+            {
+                if (is_valid_text.Equals("已摇"))
+                {
+                    token = 1;
+                }
+                else
+                {
+                    token = 0;
+                }
+            }
+
+            String build_num_text = build_num.SelectedItem.ToString();
+            if (!build_num_text.Equals("不限"))
+            {
+                build_num_text = build_num_text.Replace("#", "");
+                building_num = Convert.ToInt32(build_num_text);
+            }
+
             Helper helper = Helper.getInstance();
-            return helper.find(min_range, max_range, -1, 0, 0, 0);
+            return helper.find(min_range, max_range, -1, token, building_num, 0);
         }
 
         private void load_list_view_data()
@@ -103,18 +130,26 @@ namespace fake_single
             rooms = getQueryResult();
 
             int result_size = rooms.Count;
-            total_page = (int)(result_size / PAGE_SIZE + 1);
+            if (result_size % PAGE_SIZE == 0)
+            {
+                total_page = (int)(result_size / PAGE_SIZE);
+            }
+            else
+            {
+                total_page = (int)(result_size / PAGE_SIZE + 1);
+            }
 
             data_result.TextAlign = ContentAlignment.MiddleRight;
             data_result.Text = "共找到" + result_size
                                 + "条记录,共" + total_page + "页,"
                                 + "第" + page_num + "页";
 
+            
             room_list_view.BeginUpdate();
 
             int begain_num = (page_num - 1) * PAGE_SIZE;
             
-            for(int i = begain_num; i < begain_num + PAGE_SIZE; i++)
+            for(int i = begain_num; i < begain_num + PAGE_SIZE && result_size > 0; i++)
             {
                 if (i == result_size)
                 {
@@ -166,7 +201,6 @@ namespace fake_single
 
             detail.WindowState = FormWindowState.Maximized;
             detail.Show();
-            // MessageBox.Show("您单击的是" + );
         }
 
         private void pre_page_Click(object sender, EventArgs e)

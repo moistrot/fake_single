@@ -191,5 +191,24 @@ namespace FireBirdHelper
             return ret;
         }
 
+        public List<int> getBuildingNums()
+        {
+            FbCommand cmd = cn.CreateCommand();
+            String sql = "select distinct(BUILDINGNUMBER) from ROOM";
+
+            cmd.CommandText = sql;
+
+            List<int> ret = new List<int>();
+            using (FbDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    long num = (long)reader["BUILDINGNUMBER"];
+                    ret.Add((int)num);
+                }
+            }
+            return ret;
+        }
+
     }
 }
