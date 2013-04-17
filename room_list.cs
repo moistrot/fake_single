@@ -15,7 +15,7 @@ namespace fake_single
     {
         private static int PAGE_SIZE = 25;
 
-        private int page_num = 1;
+        private int cur_page_num = 1;
         private int total_page = 0;
 
         private List<RoomBean> rooms = null;
@@ -80,7 +80,7 @@ namespace fake_single
             room_list_view.Columns.Add("套内面积(㎡)", 100, HorizontalAlignment.Center);
             room_list_view.Columns.Add("已摇", 100, HorizontalAlignment.Center);
 
-            load_list_view_data();
+            load_list_view_data(1);
         }
 
         private List<RoomBean> getQueryResult()
@@ -124,10 +124,11 @@ namespace fake_single
             return helper.find(min_range, max_range, -1, token, building_num, 0);
         }
 
-        private void load_list_view_data()
+        private void load_list_view_data(int page_num)
         {
             room_list_view.Items.Clear();
             rooms = getQueryResult();
+            
 
             int result_size = rooms.Count;
             if (result_size % PAGE_SIZE == 0)
@@ -151,7 +152,7 @@ namespace fake_single
             
             for(int i = begain_num; i < begain_num + PAGE_SIZE && result_size > 0; i++)
             {
-                if (i == result_size)
+                if (i >= result_size)
                 {
                     break;
                 }
@@ -170,6 +171,7 @@ namespace fake_single
             }
             
             room_list_view.EndUpdate();
+            cur_page_num = page_num;
 
             room_list_view.GridLines = true;
             room_list_view.View = View.Details;
@@ -207,10 +209,9 @@ namespace fake_single
 
         private void pre_page_Click(object sender, EventArgs e)
         {
-            if (page_num > 1)
+            if (cur_page_num > 1)
             {
-                page_num--;
-                load_list_view_data();
+                load_list_view_data(cur_page_num - 1);
             }
             else
             {
@@ -220,10 +221,9 @@ namespace fake_single
 
         private void next_page_Click(object sender, EventArgs e)
         {
-            if (page_num < total_page)
+            if (cur_page_num < total_page)
             {
-                page_num++;
-                load_list_view_data();
+                load_list_view_data(cur_page_num + 1);
             }
             else
             {
@@ -233,19 +233,17 @@ namespace fake_single
 
         private void first_page_Click(object sender, EventArgs e)
         {
-            page_num = 1;
-            load_list_view_data();
+            load_list_view_data(1);
         }
 
         private void last_page_Click(object sender, EventArgs e)
         {
-            page_num = total_page;
-            load_list_view_data();
+            load_list_view_data(total_page);
         }
 
         private void query_Click(object sender, EventArgs e)
         {
-            load_list_view_data();
+            load_list_view_data(1);
         }
 
     }

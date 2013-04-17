@@ -36,6 +36,17 @@ namespace fake_single
 
             this.room_num.Text = room_num;
             this.build_num.Text = "#" + roombean.getBuildingNumber();
+            this.unit_num.Text = roombean.getName().Split('-')[0];
+            this.floor.Text = roombean.getFloor().ToString();
+            this.total_area.Text = roombean.getTotalArea().ToString();
+            this.actual_area.Text = roombean.getActualArea().ToString();
+            this.public_area.Text = roombean.getPublicArea().ToString();
+            this.public_ratio.Text = roombean.getPublicRatio().ToString();
+            this.under_name.Text = roombean.getUnderName();
+            this.under_public_area.Text = roombean.getUnderPublic().ToString();
+            this.under_total_area.Text = roombean.getUnderTotal().ToString();
+            this.under_actual_area.Text = roombean.getUnderActual().ToString();
+
             
             this.is_valid.Items.Add("否");
             this.is_valid.Items.Add("是");
@@ -63,15 +74,41 @@ namespace fake_single
 
         private void do_save_Click(object sender, EventArgs e)
         {
-            // save to db
-            this.Dispose();
-            // room_list_view reload
-            room_list.getInstance().load_list_view();
+            DialogResult result = 
+                    MessageBox.Show("确定保存吗？", "", MessageBoxButtons.OKCancel);
+
+            if (result == DialogResult.OK)
+            {
+                // save to db
+                if (this.is_valid.SelectedItem.ToString() == "是")
+                {
+                    roombean.setIsToken(1);
+                }
+                else
+                {
+                    roombean.setIsToken(0);
+                }
+
+                Helper.getInstance().update(roombean);
+                this.Dispose();
+                // room_list_view reload
+                room_list.getInstance().load_list_view();
+            }
         }
 
         private void cancel_Click(object sender, EventArgs e)
         {
             this.Dispose();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
