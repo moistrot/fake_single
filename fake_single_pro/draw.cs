@@ -35,7 +35,7 @@ namespace fake_single
         {
             if (pwd.Text == "12376")
             {
-                room_list form = new room_list();
+                room_list form = room_list.getInstance();
                 form.MdiParent = this.ParentForm;
 
 

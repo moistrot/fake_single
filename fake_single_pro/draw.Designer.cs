@@ -66,6 +66,7 @@
             this.Controls.Add(this.password);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pwd);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "draw";
             this.ResumeLayout(false);
             this.PerformLayout();

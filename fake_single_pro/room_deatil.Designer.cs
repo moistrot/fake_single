@@ -412,6 +412,7 @@
             this.Controls.Add(this.cancel);
             this.Name = "room_deatil";
             this.Text = "room_deatil";
+            this.Load += new System.EventHandler(this.room_deatil_Load);
             this.under_group.ResumeLayout(false);
             this.under_group.PerformLayout();
             this.groupBox1.ResumeLayout(false);

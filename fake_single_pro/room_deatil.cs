@@ -70,7 +70,7 @@ namespace fake_single
             }
             else
             {
-                this.is_reserved.SelectedIndex = 0;
+                this.is_reserved.SelectedIndex = 1;
             }
 
         }
@@ -129,6 +129,11 @@ namespace fake_single
         }
 
         private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void room_deatil_Load(object sender, EventArgs e)
         {
 
         }
