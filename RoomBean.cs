@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace FireBirdHelper
 {
@@ -24,6 +24,27 @@ namespace FireBirdHelper
         private int isReserved;
         private int isToken;
         private String owner;
+        private int buildingLevel;
+        private int areaNo;
+
+        public int getBuildingLevel(){
+            return this.buildingLevel;
+        }
+
+        public void setBuildingLevel(int buildingLevel)
+        {
+            this.buildingLevel = buildingLevel;
+        }
+
+        public int getAreaNo()
+        {
+            return this.areaNo;
+        }
+
+        public void setAreaNo(int areaNo)
+        {
+            this.areaNo = areaNo;
+        }
 
         public String getName()
         {
@@ -183,11 +204,10 @@ namespace FireBirdHelper
 
         public String getDisplay()
         {
-            String ret =  "此房屋是 " + buildingNumber + " 号楼" + name + ", 总面积:" + totalArea + " 实际面积: " + actualArea +
-                " 公摊面积:" + publicArea + " 公摊系数:" + publicRatio;
+            String ret = "此房屋是 " + buildingNumber + " 号楼" + name + ", 建筑面积:" + totalArea;
             if (underFloor != 0)
             {
-                ret += " 地下室:" + underName + " 实际面积:" + underActual + " 公摊面积:" + underPublic + " 总面积: " + underTotal;
+                ret += " 地下室:" + underName + " 建筑面积: " + underTotal;
             }
             return ret;
         }

@@ -72,10 +72,11 @@
             // target_box
             // 
             this.target_box.Font = new System.Drawing.Font("宋体", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.target_box.Location = new System.Drawing.Point(291, 85);
+            this.target_box.Location = new System.Drawing.Point(290, 85);
+            this.target_box.Multiline = true;
             this.target_box.Name = "target_box";
             this.target_box.ReadOnly = true;
-            this.target_box.Size = new System.Drawing.Size(215, 41);
+            this.target_box.Size = new System.Drawing.Size(215, 62);
             this.target_box.TabIndex = 4;
             this.target_box.Text = "房号";
             this.target_box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;

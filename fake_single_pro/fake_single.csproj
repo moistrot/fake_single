@@ -9,8 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>fake_single</RootNamespace>
     <AssemblyName>fake_single</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <PublishUrl>发布\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -23,7 +26,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -36,6 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -45,22 +48,43 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FirebirdSql.Data.FirebirdClient, Version=3.0.2.0, Culture=neutral, PublicKeyToken=3750abcc3150b00c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\FirebirdSql.Data.FirebirdClient.dll</HintPath>
+      <HintPath>..\..\..\Downloads\NETProvider-3.0.2.0-NET40\FirebirdSql.Data.FirebirdClient.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Deployment">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="draw.cs">
@@ -92,6 +116,12 @@
       <DependentUpon>room_list.cs</DependentUpon>
     </Compile>
     <Compile Include="SECTION.cs" />
+    <Compile Include="UserControl1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl1.Designer.cs">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="draw.resx">
       <DependentUpon>draw.cs</DependentUpon>
     </EmbeddedResource>
@@ -106,6 +136,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="room_deatil.resx">
       <DependentUpon>room_deatil.cs</DependentUpon>
@@ -113,6 +144,69 @@
     <EmbeddedResource Include="room_list.resx">
       <DependentUpon>room_list.cs</DependentUpon>
     </EmbeddedResource>
+    <Fakes Include="Fakes\System.Data.fakes" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Client.Native.IFbClient.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Entity.SSDLToFB.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Entity.SSDLToFBBase+ToStringInstanceHelper.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Entity.SSDLToFBBase.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbCommand.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbCommandBuilder.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbConnection.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbConnectionStringBuilder.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbDataAdapter.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbDatabaseInfo.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbDataReader.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbError.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbErrorCollection.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbException.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbInfoMessageEventArgs.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbInfoMessageEventHandler.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbParameter.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbParameterCollection.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbProviderManifest.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbProviderServices.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbRemoteEvent.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbRemoteEventEventArgs.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbRemoteEventEventHandler.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbRowUpdatedEventArgs.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbRowUpdatedEventHandler.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbRowUpdatingEventArgs.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbRowUpdatingEventHandler.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbTransaction.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FbTransactionOptions.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FirebirdClientFactory.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FirebirdClientPermission.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.FirebirdClient.FirebirdClientPermissionAttribute.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Isql.CommandExecutedEventArgs.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Isql.CommandExecutedEventHandler.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Isql.CommandExecutingEventArgs.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Isql.CommandExecutingEventHandler.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Isql.FbBatchExecution.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Isql.FbScript.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Isql.FbStatementCollection.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Isql.StringParser.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Server.FbResultSet.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Server.FbTriggerContext.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.FbBackup.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.FbBackupFile.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.FbBackupFileCollection.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.FbConfiguration.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.FbDatabasesInfo.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.FbDatabaseTraceConfiguration.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.FbDatabaseTraceConfigurationCollection.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.FbLog.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.FbRestore.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.FbSecurity.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.FbServerConfig.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.FbServerProperties.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.FbService.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.FbServiceTraceConfiguration.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.FbStatistical.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.FbTrace.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.FbUserData.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.FbValidation.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.ServiceOutputEventArgs.datasource" />
+    <None Include="Properties\DataSources\FirebirdSql.Data.Services.ServiceOutputEventHandler.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -144,6 +238,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

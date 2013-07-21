@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows.Forms;
 using FireBirdHelper;
 
@@ -46,6 +46,7 @@ namespace fake_single
         public draw(SECTION section)
         {
             InitializeComponent();
+            target_box.TextAlign = HorizontalAlignment.Center;
             init_room_list(section);
             this.section = section;
             this.range_show.Text = section.toString();

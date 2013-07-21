@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows.Forms;
 using FireBirdHelper;
 
@@ -182,8 +182,8 @@ namespace fake_single
                     (i + 1).ToString(), 
                     "#" + room.getBuildingNumber(), 
                     room.getName(), 
-                    room.getPublicArea().ToString(),
                     room.getTotalArea().ToString(),
+                    room.getActualArea().ToString(),
                     token,
                     reserved
                 }

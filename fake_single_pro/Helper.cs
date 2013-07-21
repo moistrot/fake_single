@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 using FirebirdSql.Data.FirebirdClient;
 using System.IO;
 
@@ -15,7 +15,7 @@ namespace FireBirdHelper
         private Helper(){
             FbConnectionStringBuilder cs = new FbConnectionStringBuilder();
             cs.DataSource = "127.0.0.1";
-            cs.Database = @"D:\HOUSENUMBER.FDB";
+            cs.Database = @"C:\HOUSENUMBER.FDB";
             cs.UserID = "sysdba";
             cs.Password = "masterkey";
             //Console.WriteLine(Directory.GetFiles(@"../").ToString());
