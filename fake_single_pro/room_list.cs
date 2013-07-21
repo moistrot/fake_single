@@ -78,6 +78,7 @@ namespace fake_single
             room_list_view.Clear();
             room_list_view.View = View.Details;
             room_list_view.Columns.Add("序号", 50, HorizontalAlignment.Center);
+            room_list_view.Columns.Add("小区", 50, HorizontalAlignment.Center);
             room_list_view.Columns.Add("楼号", 50, HorizontalAlignment.Center);
             room_list_view.Columns.Add("房号", 100, HorizontalAlignment.Center);
             room_list_view.Columns.Add("建筑面积(㎡)", 100, HorizontalAlignment.Center);
@@ -180,6 +181,7 @@ namespace fake_single
                 add_data("row" + i, new string[] 
                 { 
                     (i + 1).ToString(), 
+                    room.getAreaStr(),
                     "#" + room.getBuildingNumber(), 
                     room.getName(), 
                     room.getTotalArea().ToString(),
@@ -214,10 +216,11 @@ namespace fake_single
         private void room_list_view_double_click(object sender, EventArgs e)
         {
             if (room_list_view.SelectedItems.Count == 0) return;
-            string room_num = room_list_view.SelectedItems[0].SubItems[2].Text;
-            string building_num = room_list_view.SelectedItems[0].SubItems[1].Text;
+            string area_str = room_list_view.SelectedItems[0].SubItems[1].Text;
+            string room_num = room_list_view.SelectedItems[0].SubItems[3].Text;
+            string building_num = room_list_view.SelectedItems[0].SubItems[2].Text;
             building_num = building_num.Replace("#", "");
-            room_deatil detail = room_deatil.getInstance(room_num, building_num);
+            room_deatil detail = room_deatil.getInstance(room_num, building_num, area_str);
             detail.MdiParent = this.ParentForm;
 
 

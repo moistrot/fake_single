@@ -16,6 +16,8 @@ namespace fake_single
 
         public String range = "default";
 
+        public int buildingLv;
+
         public SECTION section = null;
 
         public RoomBean final = null;
@@ -32,36 +34,65 @@ namespace fake_single
 
         private static draw instance;
 
-        public static draw getInstance(SECTION section)
+        public static draw getInstance(SECTION section, int buildingLvIdx)
         {
             if (instance != null) 
             {
                 instance.Dispose();
 
             }
-            instance = new draw(section);
+            
+            instance = new draw(section, buildingLvIdx);
+            instance.buildingLv = buildingLvIdx;
+            
             return instance;
         }
 
-        public draw(SECTION section)
+        public draw(SECTION section, int buildingLvIdx)
         {
             InitializeComponent();
             target_box.TextAlign = HorizontalAlignment.Center;
-            init_room_list(section);
+            init_room_list(section, buildingLvIdx);
             this.section = section;
             this.range_show.Text = section.toString();
+
+            this.buildingLvText.Text = getBuildingLvStr(buildingLvIdx);
             this.label2.Hide();
             this.button2.Hide();
             this.do_save.Hide();
             this.cancel.Hide();
+
+            // 没有房源
+            if (ava.Count == 0) {
+                this.button1.Hide();
+                this.button2.Hide();
+                this.target_box.Text = "无房源";
+            }
         }
 
-        public void init_room_list(SECTION section)
+        private String getBuildingLvStr(int buildingLvIdx)
+        {
+            if (buildingLvIdx == 1)
+            {
+                return "低层";
+            }
+            if (buildingLvIdx == 2)
+            {
+                return "中层";
+            }
+            if (buildingLvIdx == 3)
+            {
+                return "高层";
+            }
+            return "";
+        }
+
+        public void init_room_list(SECTION section, int buildingLvIdx)
         {
             Helper helper = Helper.getInstance();
-            ava = helper.find(section.getMin(), section.getMax(), -1, 0, 0, 0);
-            already = helper.find(section.getMin(), section.getMax(), -1, 1, 0, 0); //
-            ava_true = helper.find(section.getMin(), section.getMax(), 0, 0, 0, 0);
+            ava = helper.find(section.getMin(), section.getMax(), -1, 0, 0, 0, buildingLvIdx, 0);
+            already = helper.find(section.getMin(), section.getMax(), -1, 1, 0, 0, buildingLvIdx, 0); //
+            ava_true = helper.find(section.getMin(), section.getMax(), 0, 0, 0, 0, buildingLvIdx, 0);
 
             this.label3.Text = "此区间已经摇出" + already.Count + "套，还剩" + ava.Count + "套";
             Console.WriteLine(ava.Count + " " + ava_true.Count + " " + already.Count);
@@ -80,6 +111,11 @@ namespace fake_single
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if (ava.Count == 0)
+            {
+                this.target_box.Text = "无房源";
+                return;
+            }
             if (i == ava.Count)
             {
                 i = 0;
@@ -134,13 +170,13 @@ namespace fake_single
 
             clean();
             this.button1.Show();
-            init_room_list(this.section);
+            init_room_list(this.section, this.buildingLv);
             
         }
 
         private void clean()
         {
-            this.target_box.Text = "房号";
+            this.target_box.Text = "请点击开始";
             this.label2.Hide();
             this.textBox1.Text = "";
         }
@@ -158,6 +194,16 @@ namespace fake_single
         private void choose_range_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             this.Dispose();
+        }
+
+        private void draw_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

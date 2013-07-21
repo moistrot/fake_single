@@ -38,7 +38,13 @@ namespace fake_single
             for (int i= 0 ;i < sections.Count; i++){
                 this.range_select.Items.Add(sections[i].toString());
             }
-            
+
+
+            this.building_level.Items.Add("低层");
+            this.building_level.Items.Add("中层");
+            this.building_level.Items.Add("高层");
+
+            this.building_level.SelectedIndex = 0;
             this.range_select.SelectedIndex = 0;
         }
 
@@ -59,6 +65,8 @@ namespace fake_single
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+            // 得到面积区间
             String range = range_select.SelectedItem.ToString();
 
             Helper helper = Helper.getInstance();
@@ -77,7 +85,12 @@ namespace fake_single
 
             Console.WriteLine(section.toString());
 
-            draw draw = draw.getInstance(section);
+            // 得到层级
+            int buildingLevelIdx = this.building_level.SelectedIndex + 1;
+           
+
+
+            draw draw = draw.getInstance(section, buildingLevelIdx);
 
             draw.MdiParent = this.ParentForm;
 
@@ -85,6 +98,11 @@ namespace fake_single
             draw.WindowState = FormWindowState.Maximized;
             draw.Show();
             
+        }
+
+        private void building_level_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
 

@@ -40,6 +40,44 @@ namespace FireBirdHelper
             }
         }
 
+        public void delete(int areaNo, int buildingNumber, String roomName)
+        {
+            FbCommand cmd = cn.CreateCommand();
+            String sql = "delete from ROOM where AREANO = " + areaNo + " and BUILDINGNUMBER = " + buildingNumber + " and NAME = '" + roomName+"'";
+            cmd.CommandText = sql;
+            cmd.ExecuteNonQuery();
+        }
+
+        public void add(RoomBean bean)
+        {
+            String sql ="INSERT INTO ROOM (NAME, BUILDINGNUMBER, FLOOR, ACTUALAREA, PUBLICAREA, TOTALAREA, PUBLICRATIO, UNDERNUMBER, UNDERNAME, UNDERFLOOR,"+
+            "UNDERACTUAL, UNDERPUBLIC, UNDERTOTAL, ISRESERVED, ISTOKEN, BUILDINGLEVEL, AREANO)"
+                    + "VALUES ('" +
+                    bean.getName() + "', " +
+                    bean.getBuildingNumber() + ", " +
+                    bean.getFloor()+ ", " +
+                    bean.getActualArea()+ ", " +
+                    bean.getPublicArea()+", " + 
+                    bean.getTotalArea()+ ", " + 
+                    bean.getPublicRatio()+ ", '" + 
+                    bean.getUnderNumber() + "', '" + 
+                    bean.getUnderName() + "', " + 
+                    bean.getUnderFloor() + ", " + 
+                    bean.getUnderActual()+ ", " + 
+                    bean.getUnderPublic() + ", " + 
+                    bean.getUnderTotal() + ", " + 
+                    bean.getIsReserved()+ ", " + 
+                    bean.getIsToken()+ ", " + 
+
+                    bean.getBuildingLevel()+ ", " + 
+                    bean.getAreaNo() + ")";
+            
+            FbCommand cmd = cn.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.ExecuteNonQuery();
+
+        }
+
         public List<RoomBean> find(float min, float max, int reserved, int token, int buildingNumber, int floor, 
             int buildingLevel, int areaNo)
         {
@@ -134,16 +172,19 @@ namespace FireBirdHelper
             bean.setPublicArea((float)reader["PUBLICAREA"]);
             bean.setTotalArea((float)reader["TOTALAREA"]);
             bean.setPublicRatio((float)reader["PUBLICRATIO"]);
+            
+            
             try
             {
-                bean.setBuildingLevel((int)reader["BUILDINGLEVEL"]);
+                bean.setBuildingLevel((int)(long)reader["BUILDINGLEVEL"]);
             }
             catch (Exception e)
             {
             }
             try
             {
-                bean.setAreaNo((int)reader["AREANO"]);
+                
+                bean.setAreaNo((int)(long)reader["AREANO"]);
             }
             catch (Exception e)
             {
@@ -215,8 +256,9 @@ namespace FireBirdHelper
             String sql = "update ROOM set ISRESERVED = " 
                 + bean.getIsReserved() + ", ISTOKEN = " 
                 + bean.getIsToken() 
-                + " where NAME = '"+ bean.getName() + "'"
+                + " where NAME = '"+ bean.getName() + "' and AREANO = "+ bean.getAreaNo()
                 + " and BUILDINGNUMBER = " + bean.getBuildingNumber();
+            Console.WriteLine(sql);
             cm.CommandType = System.Data.CommandType.Text;
             cm.CommandText = sql;
             cm.ExecuteNonQuery();
@@ -228,26 +270,27 @@ namespace FireBirdHelper
             FbCommand cm = new FbCommand();
             cm.Connection = cn;
             String sql = "update ROOM set "
-                + "NAME = " + bean.getIsReserved()
-                + ",BUILDINGNUMBER = " + bean.getIsReserved()
-                + ",FLOOR = " + bean.getIsReserved()
-                + ",ACTUALAREA = " + bean.getIsReserved()
-                + ",PUBLICAREA = " + bean.getIsReserved()
-                + ",TOTALAREA = " + bean.getIsReserved()
-                + ",PUBLICRATIO = " + bean.getIsReserved()
-                + ",UNDERNUMBER = " + bean.getIsReserved()
-                + ",UNDERNAME = " + bean.getIsReserved()
-                + ",UNDERFLOOR = " + bean.getIsReserved()
-                + ",UNDERACTUAL = " + bean.getIsReserved()
-                + ",UNDERPUBLIC = " + bean.getIsReserved()
-                + ",UNDERTOTAL = " + bean.getIsReserved()
+                + "NAME = '" + bean.getName()
+                + "',BUILDINGNUMBER = " + bean.getBuildingNumber()
+                + ",FLOOR = " + bean.getFloor()
+                + ",ACTUALAREA = " + bean.getActualArea()
+                + ",PUBLICAREA = " + bean.getPublicArea()
+                + ",TOTALAREA = " + bean.getTotalArea()
+                + ",PUBLICRATIO = " + bean.getPublicRatio()
+                + ",UNDERNUMBER = '" + bean.getUnderNumber()
+                + "',UNDERNAME = '" + bean.getUnderName()
+                + "',UNDERFLOOR = " + bean.getUnderFloor()
+                + ",UNDERACTUAL = " + bean.getUnderActual()
+                + ",UNDERPUBLIC = " + bean.getUnderPublic()
+                + ",UNDERTOTAL = " + bean.getUnderTotal()
                 + ",ISRESERVED = " + bean.getIsReserved()
-                + ",BUILDINGLEVEL = "+ bean.getIsReserved()
-                + ",AREANO = " + bean.getIsReserved()
+                + ",BUILDINGLEVEL = "+ bean.getBuildingLevel()
+                + ",AREANO = " + bean.getAreaNo()
                 + ", ISTOKEN = "+ bean.getIsToken()
 
-                + " where NAME = '" + bean.getName() + "'"
+                + " where NAME = '" + bean.getName() + "' and AREANO = "+ bean.getAreaNo() 
                 + " and BUILDINGNUMBER = " + bean.getBuildingNumber();
+            Console.WriteLine(sql);
             cm.CommandType = System.Data.CommandType.Text;
             cm.CommandText = sql;
             cm.ExecuteNonQuery();

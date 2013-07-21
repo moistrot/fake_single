@@ -18,25 +18,36 @@ namespace fake_single
 
         private RoomBean roombean;
 
-        public static room_deatil getInstance(string room_num, string building)
+        public static room_deatil getInstance(string room_num, string building, string areastr)
         {
             if (instance != null)
             {
                 instance.Dispose();
             }
-            instance = new room_deatil(room_num, building);
+            instance = new room_deatil(room_num, building, areastr);
             return instance;
         }
 
-        public room_deatil(string room_num, string building)
+        public room_deatil(string room_num, string building, string areaStr)
         {
             InitializeComponent();
+
+            int areaIdx = 0;
+            if (areaStr.Equals("欣园"))
+            {
+                areaIdx = 1;
+            }
+            if (areaStr.Equals("朗园"))
+            {
+                areaIdx = 2;
+            }
+
             Helper helper = Helper.getInstance();
-            roombean = helper.getRoomBean(room_num, Convert.ToInt32(building));
+            roombean = helper.getRoomBean(room_num, Convert.ToInt32(building), 0, areaIdx);
 
             this.room_num.Text = room_num;
-            this.build_num.Text = "#" + roombean.getBuildingNumber();
-            this.unit_num.Text = roombean.getName().Split('-')[0];
+            this.build_num.Text = roombean.getBuildingNumber().ToString();
+
             this.floor.Text = roombean.getFloor().ToString();
             this.total_area.Text = roombean.getTotalArea().ToString();
             this.actual_area.Text = roombean.getActualArea().ToString();
@@ -46,14 +57,15 @@ namespace fake_single
             this.under_public_area.Text = roombean.getUnderPublic().ToString();
             this.under_total_area.Text = roombean.getUnderTotal().ToString();
             this.under_actual_area.Text = roombean.getUnderActual().ToString();
+            this.areaNu.Text = areaStr;
 
-            
-            
+
             this.is_valid.Items.Add("否");
             this.is_valid.Items.Add("是");
 
             this.is_reserved.Items.Add("否");
             this.is_reserved.Items.Add("是");
+
             // 这里绑定数据
             if (roombean.getIsToken() == 0)
             {
@@ -134,6 +146,16 @@ namespace fake_single
         }
 
         private void room_deatil_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }

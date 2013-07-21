@@ -189,9 +189,19 @@ namespace FireBirdHelper
         {
             this.underTotal = underTotal;
         }
+
+        public String getAreaStr(){
+            if(this.areaNo == 1){
+                return "欣园";
+            }
+            if(this.areaNo == 2){
+                return "朗园";
+            }
+            return "";
+        }
         public String toString()
         {
-            return name + " " + buildingNumber + " " + floor + " "
+            return getAreaStr()+ " " + name + " " + buildingNumber + " " + floor + " "
                 + actualArea + " " + publicArea + " " + totalArea
                 + " " + publicRatio + " " + underFloor
                 + " " + isToken + " " + isReserved;
@@ -199,12 +209,12 @@ namespace FireBirdHelper
 
         public String getString()
         {
-            return "#" + buildingNumber + " " + name;
+            return getAreaStr() + " " + "#" + buildingNumber + " " + name;
         }
 
         public String getDisplay()
         {
-            String ret = "此房屋是 " + buildingNumber + " 号楼" + name + ", 建筑面积:" + totalArea;
+            String ret = "此房屋是 "+ getAreaStr()+ " " + buildingNumber + " 号楼" + name + ", 建筑面积:" + totalArea;
             if (underFloor != 0)
             {
                 ret += " 地下室:" + underName + " 建筑面积: " + underTotal;

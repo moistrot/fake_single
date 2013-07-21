@@ -38,7 +38,6 @@
             this.cancel = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -51,7 +50,6 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.unit_num = new System.Windows.Forms.TextBox();
             this.floor = new System.Windows.Forms.TextBox();
             this.total_area = new System.Windows.Forms.TextBox();
             this.actual_area = new System.Windows.Forms.TextBox();
@@ -60,6 +58,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label14 = new System.Windows.Forms.Label();
             this.is_reserved = new System.Windows.Forms.ComboBox();
+            this.areaNu = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.under_group.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -146,7 +146,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(234, 64);
+            this.label4.Location = new System.Drawing.Point(234, 69);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(29, 12);
             this.label4.TabIndex = 8;
@@ -162,16 +162,6 @@
             this.label5.Size = new System.Drawing.Size(41, 12);
             this.label5.TabIndex = 9;
             this.label5.Text = "总面积";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label6.Location = new System.Drawing.Point(16, 64);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 12);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "单元号";
             // 
             // label7
             // 
@@ -298,19 +288,10 @@
             this.label11.TabIndex = 15;
             this.label11.Text = "房号";
             // 
-            // unit_num
-            // 
-            this.unit_num.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.unit_num.Location = new System.Drawing.Point(63, 61);
-            this.unit_num.Name = "unit_num";
-            this.unit_num.ReadOnly = true;
-            this.unit_num.Size = new System.Drawing.Size(100, 21);
-            this.unit_num.TabIndex = 16;
-            // 
             // floor
             // 
             this.floor.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.floor.Location = new System.Drawing.Point(270, 61);
+            this.floor.Location = new System.Drawing.Point(270, 66);
             this.floor.Name = "floor";
             this.floor.ReadOnly = true;
             this.floor.Size = new System.Drawing.Size(100, 21);
@@ -355,6 +336,8 @@
             // groupBox1
             // 
             this.groupBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.groupBox1.Controls.Add(this.areaNu);
+            this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.public_ratio);
             this.groupBox1.Controls.Add(this.room_num);
@@ -364,11 +347,9 @@
             this.groupBox1.Controls.Add(this.build_num);
             this.groupBox1.Controls.Add(this.total_area);
             this.groupBox1.Controls.Add(this.floor);
-            this.groupBox1.Controls.Add(this.unit_num);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -397,11 +378,32 @@
             this.is_reserved.Size = new System.Drawing.Size(99, 20);
             this.is_reserved.TabIndex = 24;
             // 
+            // areaNu
+            // 
+            this.areaNu.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.areaNu.Location = new System.Drawing.Point(64, 60);
+            this.areaNu.Name = "areaNu";
+            this.areaNu.ReadOnly = true;
+            this.areaNu.Size = new System.Drawing.Size(100, 21);
+            this.areaNu.TabIndex = 23;
+            this.areaNu.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label6.Location = new System.Drawing.Point(28, 63);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(29, 12);
+            this.label6.TabIndex = 22;
+            this.label6.Text = "小区";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
             // room_deatil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(611, 410);
+            this.ClientSize = new System.Drawing.Size(611, 444);
             this.Controls.Add(this.is_reserved);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.groupBox1);
@@ -434,7 +436,6 @@
         private System.Windows.Forms.Button cancel;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
@@ -443,7 +444,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox unit_num;
         private System.Windows.Forms.TextBox floor;
         private System.Windows.Forms.TextBox total_area;
         private System.Windows.Forms.TextBox actual_area;
@@ -456,5 +456,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox is_reserved;
+        private System.Windows.Forms.TextBox areaNu;
+        private System.Windows.Forms.Label label6;
     }
 }

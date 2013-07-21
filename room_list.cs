@@ -64,6 +64,16 @@ namespace fake_single
             this.is_valid.Items.Add("未摇");
             this.is_valid.SelectedIndex = 0;
 
+            this.areaNu.Items.Add("不限");
+            this.areaNu.Items.Add("欣园");
+            this.areaNu.Items.Add("朗园");
+            this.areaNu.SelectedIndex = 0;
+
+            this.buildingLv.Items.Add("不限");
+            this.buildingLv.Items.Add("低层");
+            this.buildingLv.Items.Add("中层");
+            this.buildingLv.Items.Add("高层");
+            this.buildingLv.SelectedIndex = 0;
             
 
             load_list_view();
@@ -74,6 +84,7 @@ namespace fake_single
             room_list_view.Clear();
             room_list_view.View = View.Details;
             room_list_view.Columns.Add("序号", 50, HorizontalAlignment.Center);
+            room_list_view.Columns.Add("小区", 50, HorizontalAlignment.Center);
             room_list_view.Columns.Add("楼号", 100, HorizontalAlignment.Center);
             room_list_view.Columns.Add("房号", 100, HorizontalAlignment.Center);
             room_list_view.Columns.Add("建筑面积(㎡)", 100, HorizontalAlignment.Center);
@@ -120,8 +131,11 @@ namespace fake_single
                 building_num = Convert.ToInt32(build_num_text);
             }
 
+            int buildingLvIdx = this.buildingLv.SelectedIndex;
+            int areaNum = this.areaNu.SelectedIndex;
+
             Helper helper = Helper.getInstance();
-            return helper.find(min_range, max_range, -1, token, building_num, 0);
+            return helper.find(min_range, max_range, -1, token, building_num, 0, buildingLvIdx, areaNum);
         }
 
         private void load_list_view_data(int page_num)
@@ -161,6 +175,7 @@ namespace fake_single
                 add_data("row" + i, new string[] 
                 { 
                     (i + 1).ToString(), 
+                    room.getAreaStr(),
                     "#" + room.getBuildingNumber(), 
                     room.getName(), 
                     room.getTotalArea().ToString(),
@@ -196,10 +211,11 @@ namespace fake_single
         private void room_list_view_double_click(object sender, EventArgs e)
         {
             if (room_list_view.SelectedItems.Count == 0) return;
-            string room_num = room_list_view.SelectedItems[0].SubItems[2].Text;
-            string building_num = room_list_view.SelectedItems[0].SubItems[1].Text;
+            string area_str = room_list_view.SelectedItems[0].SubItems[1].Text;
+            string room_num = room_list_view.SelectedItems[0].SubItems[3].Text;
+            string building_num = room_list_view.SelectedItems[0].SubItems[2].Text;
             building_num = building_num.Replace("#", "");
-            room_deatil detail = room_deatil.getInstance(room_num, building_num);
+            room_deatil detail = room_deatil.getInstance(room_num, building_num, area_str);
             detail.MdiParent = this.ParentForm;
 
 
@@ -244,6 +260,49 @@ namespace fake_single
         private void query_Click(object sender, EventArgs e)
         {
             load_list_view_data(1);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+             room_add romm_add = room_add.getInstance();
+             romm_add.MdiParent = this.ParentForm;
+
+
+             romm_add.WindowState = FormWindowState.Maximized;
+             romm_add.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (room_list_view.SelectedItems.Count == 0) return;
+             DialogResult result = 
+                    MessageBox.Show("确定删除吗？", "", MessageBoxButtons.OKCancel);
+
+             if (result == DialogResult.OK)
+             {
+                 string area_str = room_list_view.SelectedItems[0].SubItems[1].Text;
+                 string room_num = room_list_view.SelectedItems[0].SubItems[3].Text;
+                 string building_num = room_list_view.SelectedItems[0].SubItems[2].Text;
+                 building_num = building_num.Replace("#", "");
+                 int areaNu = 0;
+                 if (area_str.Equals("欣园"))
+                 {
+                     areaNu = 1;
+                 }
+                 if (area_str.Equals("朗园"))
+                 {
+                     areaNu = 2;
+                 }
+
+                 Helper.getInstance().delete(areaNu, Int32.Parse(building_num), room_num);
+                 int refreshPage = cur_page_num;
+                 if (rooms.Count == 1)
+                 {
+                     refreshPage = cur_page_num - 1;
+                 }
+                 load_list_view_data(refreshPage);
+             }
+
         }
 
     }
